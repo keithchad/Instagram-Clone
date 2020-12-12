@@ -2,4 +2,6 @@
     <string name="app_name">Instagram Clone</string>
     <string name="from">from</string>
     <string name="f_a_c_e_b_o_o_k">F A C E B O O K</string>
+    <string name="login">LOGIN</string>
+    <string name="register">REGISTER</string>
 </resources>
