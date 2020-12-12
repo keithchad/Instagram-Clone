@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.chad.instagramclone.MainActivity;
 import com.chad.instagramclone.R;
@@ -38,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initialize();
+        getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorWhite));
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorWhite));
     }
 
     private void initialize() {
@@ -48,11 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        buttonLogin.setOnClickListener(v -> {
-            progressBar.setVisibility(View.VISIBLE);
-            buttonLogin.setVisibility(View.GONE);
-            loginUser();
-        });
+        buttonLogin.setOnClickListener(v -> loginUser());
     }
 
     private void loginUser() {
@@ -68,6 +67,9 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        progressBar.setVisibility(View.VISIBLE);
+        buttonLogin.setVisibility(View.GONE);
+
         String email = edittextEmail.getText().toString();
         String password = edittextPassword.getText().toString();
 
@@ -75,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
-                        .child("Users").child(firebaseAuth.getCurrentUser().getUid());
+                        .child("Users").child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.chad.instagramclone.MainActivity;
 import com.chad.instagramclone.R;
@@ -22,6 +23,8 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         initialize();
+        getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorWhite));
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorWhite));
     }
 
     private void initialize() {

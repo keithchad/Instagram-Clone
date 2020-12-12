@@ -78,6 +78,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginTop="10dp"
+        app:endIconMode="password_toggle"
         android:layout_below="@id/createTextInputLayoutEmail"
         android:hint="@string/password">
 
@@ -97,6 +98,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginTop="10dp"
+        app:endIconMode="password_toggle"
         android:layout_below="@id/createTextInputLayoutPassword"
         android:hint="@string/confirm_password">
 
@@ -116,7 +118,7 @@
         android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"
         android:layout_marginTop="24dp"
-        android:textColor="?attr/text_color"
+        android:textColor="@color/colorWhite"
         android:layout_below="@id/createTextInputLayoutConfirmPassword"
         android:elevation="40dp"/>
 

@@ -7,6 +7,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.chad.instagramclone.Constants.Constants;
 import com.chad.instagramclone.MainActivity;
@@ -41,6 +42,9 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initialize();
+        setTheme(R.style.DarkTheme);
+        getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorWhite));
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorWhite));
     }
 
     private void initialize() {
@@ -54,11 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        buttonRegister.setOnClickListener(v -> {
-            progressBar.setVisibility(View.VISIBLE);
-            buttonRegister.setVisibility(View.GONE);
-            registerUser();
-        });
+        buttonRegister.setOnClickListener(v -> registerUser());
     }
 
     private void registerUser() {
@@ -82,6 +82,9 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Both Passwords should be the same", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        progressBar.setVisibility(View.VISIBLE);
+        buttonRegister.setVisibility(View.GONE);
 
         String userName = edittextUsername.getText().toString();
         String email = edittextEmail.getText().toString();

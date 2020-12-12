@@ -1,6 +1,7 @@
 package com.chad.instagramclone.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         initialize();
+        getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorWhite));
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorWhite));
     }
 
     private void initialize() {
