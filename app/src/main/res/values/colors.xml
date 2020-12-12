@@ -2,9 +2,20 @@
 <resources>
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#EFEFEF</color>
-    <color name="colorAccent">#DA0303</color>
+    <color name="colorAccent">#034BDA</color>
 
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
+
+<!--    //Dark Theme Colors-->
+    <color name="colorPrimaryDarkTheme">#141414</color>
+    <color name="colorPrimaryDarkDarkTheme">#141414</color>
+    <color name="colorBackgroundDarkTheme">#141414</color>
+    <color name="colorTextDarkTheme">#FAFAFA</color>
+    <color name="colorIconTintDarkTheme">#A2A2A2</color>
+
+<!--    //Light Theme Colors-->
+    <color name="colorTextLightTheme">#363636</color>
+    <color name="colorBackgroundLightTheme">#FFFFFF</color>
 
 </resources>
