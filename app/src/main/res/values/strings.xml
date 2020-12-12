@@ -4,4 +4,9 @@
     <string name="f_a_c_e_b_o_o_k">F A C E B O O K</string>
     <string name="login">LOGIN</string>
     <string name="register">REGISTER</string>
+    <string name="username">Username</string>
+    <string name="fullname">Fullname</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>
