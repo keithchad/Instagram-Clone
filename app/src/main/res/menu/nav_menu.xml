@@ -1,4 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:id="@+id/home"
+        android:title="@string/home"
+        android:icon="@drawable/ic_home"/>
+
+    <item android:id="@+id/search"
+        android:title="@string/search"
+        android:icon="@drawable/ic_search"/>
+
+    <item android:id="@+id/addPhoto"
+        android:title="@string/add"
+        android:icon="@drawable/ic_add_a_photo"/>
+
+    <item android:id="@+id/notification"
+        android:title="@string/notification"
+        android:icon="@drawable/ic_favorite"/>
+
+    <item android:id="@+id/profile"
+        android:title="@string/profile"
+        android:icon="@drawable/ic_person"/>
+
+
+
 </menu>
