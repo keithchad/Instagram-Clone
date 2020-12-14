@@ -103,8 +103,8 @@ public class RegisterActivity extends AppCompatActivity {
                 hashMap.put(Constants.USER_ID, userId);
                 hashMap.put(Constants.USER_NAME, userName.toLowerCase());
                 hashMap.put(Constants.FULL_NAME, fullName);
-                hashMap.put(Constants.BIO, "");
-                hashMap.put(Constants.IMAGE_URL, "");
+                hashMap.put(Constants.BIO, "Welcome to Instagram!");
+                hashMap.put(Constants.IMAGE_URL, "https://firebasestorage.googleapis.com/v0/b/instagram-clone-c771f.appspot.com/o/rc_profile.jpg?alt=media&token=3915d9b1-5a82-4e6b-ac7f-fbf0ba0b84f7");
 
                 reference.setValue(hashMap).addOnCompleteListener(task1 -> {
                     progressBar.setVisibility(View.GONE);

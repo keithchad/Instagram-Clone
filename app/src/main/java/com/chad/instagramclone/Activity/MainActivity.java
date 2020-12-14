@@ -72,5 +72,5 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment).commit();
                 }
                 return true;
-            };
+    };
 }
