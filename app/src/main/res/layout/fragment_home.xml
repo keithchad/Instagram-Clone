@@ -1,15 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.HomeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.HomeFragment"
+    android:background="?attr/backgroundColor">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+   <com.google.android.material.appbar.AppBarLayout
+       android:id="@+id/appBar"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:backgroundTint="?attr/backgroundColor"
+       app:elevation="12dp">
+
+       <androidx.appcompat.widget.Toolbar
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+               <ImageView
+                   android:id="@+id/iconCamera"
+                   android:layout_width="40dp"
+                   android:layout_height="35dp"
+                   android:src="@drawable/ic_camera"
+                   app:tint="?attr/text_color"
+                   android:contentDescription="@string/app_name" />
+
+               <ImageView
+                   android:id="@+id/imageLogo"
+                   android:layout_width="100dp"
+                   android:layout_height="40dp"
+                   android:src="@drawable/logo"
+                   android:layout_marginStart="8dp"
+                   app:tint="?attr/text_color"
+                   android:layout_toEndOf="@id/iconCamera"
+                   android:contentDescription="@string/app_name"/>
+
+               <ImageView
+                   android:layout_width="40dp"
+                   android:layout_height="40dp"
+                   android:src="@drawable/ic_inbox"
+                   android:layout_marginEnd="8dp"
+                   app:tint="?attr/text_color"
+                   android:contentDescription="@string/app_name"
+                   android:layout_alignParentEnd="true"/>
+
+           </RelativeLayout>
+
+       </androidx.appcompat.widget.Toolbar>
+
+   </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/homeRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Home"
-        android:gravity="center"/>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_below="@id/appBar"
+        tools:listitem="@layout/post_item"
+        tools:itemCount="4"/>
 
-</FrameLayout>
+</RelativeLayout>

@@ -20,4 +20,6 @@
     <string name="following">Following</string>
     <string name="post">POST</string>
     <string name="caption">Caption</string>
+    <string name="liked_by_20">Liked by 20</string>
+    <string name="view_all_5_comments">View all 5 comments</string>
 </resources>

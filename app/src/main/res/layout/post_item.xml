@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="12dp"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/username"
+                android:textColor="?attr/text_color"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_more"
+                android:layout_marginEnd="8dp"
+                android:layout_gravity="center_vertical"
+                app:tint="?attr/text_color"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/app_name" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_launcher_background"
+            android:scaleType="centerCrop"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:layout_marginTop="8dp">
+
+            <ImageView
+                android:id="@+id/imageLike"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_favorite_border"
+                app:tint="?attr/text_color"
+                android:layout_marginEnd="8dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/app_name" />
+
+            <ImageView
+                android:id="@+id/imageComment"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_comment"
+                android:layout_marginEnd="8dp"
+                app:tint="?attr/text_color"
+                android:layout_toEndOf="@id/imageLike"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/app_name" />
+
+            <ImageView
+                android:id="@+id/imageInbox"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_inbox"
+                android:layout_marginEnd="8dp"
+                app:tint="?attr/text_color"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/app_name"
+                android:layout_toEndOf="@id/imageComment"/>
+
+            <ImageView
+                android:id="@+id/imageSave"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_bookmark_border"
+                android:layout_marginEnd="8dp"
+                app:tint="?attr/text_color"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/app_name"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/liked_by_20"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textColor="?attr/text_color"
+            android:layout_marginTop="8dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/textPublisher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/username"
+                android:textStyle="bold"
+                android:paddingStart="12dp"
+                android:textColor="?attr/text_color"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/textCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/common_google_play_services_install_text"
+                android:layout_toEndOf="@id/textPublisher"
+                android:layout_marginStart="8dp"
+                android:maxLines="1"
+                android:paddingEnd="8dp"
+                android:ellipsize="end"
+                tools:ignore="RtlSymmetry" />
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textComments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/view_all_5_comments"
+            android:paddingStart="12dp"
+            android:paddingEnd="8dp"
+            android:textColor="?attr/text_color"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
