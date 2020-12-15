@@ -26,8 +26,8 @@
 
                 <ImageView
                     android:id="@+id/imageClose"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:background="?selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true"
@@ -37,8 +37,8 @@
 
                 <ProgressBar
                     android:id="@+id/postProgressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_marginEnd="10dp"
                     android:visibility="gone"
                     android:layout_alignParentEnd="true"
@@ -50,7 +50,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/post"
+                    android:maxLines="1"
+                    android:padding="8dp"
                     android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:layout_marginEnd="10dp"
                     android:textSize="16sp"
                     android:textStyle="bold"

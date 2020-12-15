@@ -67,7 +67,7 @@ public class PostActivity extends AppCompatActivity {
             finish();
         });
 
-        imagePost.setOnClickListener(v -> uploadImage());
+        textPost.setOnClickListener(v -> uploadImage());
 
         CropImage.activity()
                 .setAspectRatio(1,1)
@@ -137,7 +137,9 @@ public class PostActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            imageUri = result.getUri();
+            if (result != null) {
+                imageUri = result.getUri();
+            }
             imagePost.setImageURI(imageUri);
         } else {
             Toast.makeText(this, "Something went wrong!", Toast.LENGTH_SHORT).show();

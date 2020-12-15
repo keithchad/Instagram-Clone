@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
                 new HomeFragment()).commit();
-
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -52,9 +51,8 @@ public class MainActivity extends AppCompatActivity {
                         selectedFragment = new SearchFragment();
                         break;
                     case R.id.addPhoto:
-                        Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+                        Intent intent = new Intent(MainActivity.this, PostActivity.class);
                         startActivity(intent);
-                        FirebaseAuth.getInstance().signOut();
                         break;
                     case R.id.notification:
                         selectedFragment = new NotificationFragment();
