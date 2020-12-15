@@ -18,4 +18,6 @@
     <string name="notification">Notification</string>
     <string name="follow">Follow</string>
     <string name="following">Following</string>
+    <string name="post">POST</string>
+    <string name="caption">Caption</string>
 </resources>

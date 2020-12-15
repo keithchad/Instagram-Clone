@@ -73,12 +73,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         });
 
         holder.buttonFollow.setOnClickListener(v -> {
-            if (holder.buttonFollow.getText().toString().equals("follow")) {
+            if(holder.buttonFollow.getText().toString().equals("follow")) {
                 FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid())
                         .child("following").child(user.getId()).setValue(true);
                 FirebaseDatabase.getInstance().getReference().child("Follow").child(user.getId())
                         .child("followers").child(firebaseUser.getUid()).setValue(true);
-            } else {
+            }else {
                 FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid())
                         .child("following").child(user.getId()).removeValue();
                 FirebaseDatabase.getInstance().getReference().child("Follow").child(user.getId())
@@ -110,15 +110,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         }
     }
 
-    private void isFollowing(String userId, Button button) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid())
-                .child("following");
+    private void isFollowing(final String userId, final Button button) {
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
+                .child("Follow").child(firebaseUser.getUid()).child("following");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child(userId).exists()) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child(userId).exists()) {
                     button.setText(R.string.following);
-                } else {
+                }else {
                     button.setText(R.string.follow);
                 }
             }
@@ -128,6 +129,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
             }
         });
+
     }
 
 }
