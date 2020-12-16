@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
@@ -72,6 +73,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         isLiked(post.getPostId(), holder.imageLike);
         numberOfLikes(holder.textLikes, post.getPostId());
         getComments(post.getPostId(), holder.textComment);
+        isSaved(post.getPostId(), holder.imageSave);
 
         holder.imageLike.setOnClickListener(v -> {
             if (holder.imageLike.getTag().equals("Like")) {
@@ -96,6 +98,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             intent.putExtra(Constants.PUBLISHER_ID, post.getPublisherId());
             context.startActivity(intent);
         });
+
+        holder.imageSave.setOnClickListener(v -> {
+            if (holder.imageSave.getTag().equals("Save")) {
+                FirebaseDatabase.getInstance().getReference().child("Save")
+                        .child(firebaseUser.getUid())
+                        .child(post.getPostId())
+                        .setValue(true);
+            } else {
+                FirebaseDatabase.getInstance().getReference().child("Save")
+                        .child(firebaseUser.getUid())
+                        .child(post.getPostId())
+                        .removeValue();
+            }
+        });
+
     }
 
     @Override
@@ -108,13 +125,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         private final ImageView profileImage;
         private final ImageView postImage;
         private final ImageView imageLike;
-        private ImageView imageComment;
+        private final ImageView imageComment;
         private final ImageView imageInbox;
-        private ImageView imageSave;
+        private final ImageView imageSave;
 
         private final TextView textUsername;
         private final TextView textCaption;
-        private TextView textComment;
+        private final TextView textComment;
         private final TextView textLikes;
         private final TextView textPublisher;
 
@@ -206,6 +223,30 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     publisher.setText(user.getUserName());
                 }
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void isSaved(String postId, ImageView imageView) {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
+                .child("Saves")
+                .child(Objects.requireNonNull(firebaseUser).getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.child(postId).exists()) {
+                    imageView.setImageResource(R.drawable.ic_bookmark);
+                    imageView.setTag("saved");
+                } else {
+                    imageView.setImageResource(R.drawable.ic_bookmark_border);
+                    imageView.setTag("save");
+                }
             }
 
             @Override
