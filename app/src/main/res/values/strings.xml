@@ -22,4 +22,7 @@
     <string name="caption">Caption</string>
     <string name="liked_by_20">Liked by 20</string>
     <string name="view_all_5_comments">View all 5 comments</string>
+    <string name="comments">COMMENTS</string>
+    <string name="comment">Comment</string>
+    <string name="dot">.</string>
 </resources>
