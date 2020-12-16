@@ -24,14 +24,12 @@
                 android:id="@+id/profileImage"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:contentDescription="@string/app_name"
-                android:src="@mipmap/ic_launcher"/>
+                android:contentDescription="@string/app_name" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/username"
                 android:textColor="?attr/text_color"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
@@ -57,7 +55,6 @@
             android:layout_height="300dp"
             android:layout_marginTop="8dp"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_launcher_background"
             android:scaleType="centerCrop"/>
 
         <RelativeLayout
@@ -124,7 +121,6 @@
             android:id="@+id/textLikes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/liked_by_20"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:textColor="?attr/text_color"
@@ -139,7 +135,6 @@
                 android:id="@+id/textPublisher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/username"
                 android:textStyle="bold"
                 android:paddingStart="12dp"
                 android:textColor="?attr/text_color"
@@ -149,7 +144,6 @@
                 android:id="@+id/textCaption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/common_google_play_services_install_text"
                 android:layout_toEndOf="@id/textPublisher"
                 android:layout_marginStart="8dp"
                 android:maxLines="1"
@@ -165,7 +159,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/view_all_5_comments"
             android:paddingStart="12dp"
             android:paddingEnd="8dp"
             android:textColor="?attr/text_color"/>

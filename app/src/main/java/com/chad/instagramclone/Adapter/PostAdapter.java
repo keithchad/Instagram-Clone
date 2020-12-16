@@ -1,5 +1,6 @@
 package com.chad.instagramclone.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -28,8 +29,8 @@ import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
-    private Context context;
-    private List<Post> list;
+    private final Context context;
+    private final List<Post> list;
 
     private FirebaseUser firebaseUser;
 
@@ -65,6 +66,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.imageInbox.setOnClickListener(v -> Toast.makeText(context, "Inbox", Toast.LENGTH_SHORT).show());
 
         publisherInfo(holder.profileImage, holder.textUsername, holder.textPublisher, post.getPublisherId());
+        isLiked(post.getPostId(), holder.imageLike);
+        numberOfLikes(holder.textLikes, post.getPostId());
+
+        holder.imageLike.setOnClickListener(v -> {
+            if (holder.imageLike.getTag().equals("Like")) {
+                FirebaseDatabase.getInstance().getReference().child("Likes")
+                        .child(post.getPostId()).child(firebaseUser.getUid()).setValue(true);
+            } else {
+                FirebaseDatabase.getInstance().getReference().child("Likes")
+                        .child(post.getPostId()).child(firebaseUser.getUid()).removeValue();
+            }
+        });
     }
 
     @Override
@@ -74,18 +87,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView profileImage;
-        private ImageView postImage;
-        private ImageView imageLike;
+        private final ImageView profileImage;
+        private final ImageView postImage;
+        private final ImageView imageLike;
         private ImageView imageComment;
-        private ImageView imageInbox;
+        private final ImageView imageInbox;
         private ImageView imageSave;
 
-        private TextView textUsername;
-        private TextView textCaption;
+        private final TextView textUsername;
+        private final TextView textCaption;
         private TextView textComment;
-        private TextView textLikes;
-        private TextView textPublisher;
+        private final TextView textLikes;
+        private final TextView textPublisher;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -102,6 +115,49 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             textLikes = itemView.findViewById(R.id.textLikes);
             textPublisher = itemView.findViewById(R.id.textPublisher);
         }
+    }
+
+    private void isLiked(String postId, ImageView imageView) {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
+                .child("Likes")
+                .child(postId);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (firebaseUser != null && snapshot.child(firebaseUser.getUid()).exists()) {
+                    imageView.setImageResource(R.drawable.ic_liked);
+                    imageView.setTag("Liked");
+                } else {
+                    imageView.setImageResource(R.drawable.ic_favorite_border);
+                    imageView.setTag("Like");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    
+    private void numberOfLikes(TextView likes, String postId) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
+                .child("Likes")
+                .child(postId);
+        reference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                likes.setText(snapshot.getChildrenCount()+" likes");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void publisherInfo(ImageView imageProfile, TextView userName, TextView publisher, String userId ) {
