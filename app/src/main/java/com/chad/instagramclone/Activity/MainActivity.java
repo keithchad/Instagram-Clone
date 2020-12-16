@@ -46,8 +46,21 @@ public class MainActivity extends AppCompatActivity {
     private void initialize() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
-                new HomeFragment()).commit();
+
+        Bundle intent = getIntent().getExtras();
+        if (intent != null) {
+            String publisher = intent.getString(Constants.PUBLISHER_ID);
+
+            SharedPreferences.Editor editor = getSharedPreferences(Constants.SHARED_PREF, MODE_PRIVATE).edit();
+            editor.putString(Constants.SHARED_PREF_PROFILE_ID, publisher);
+            editor.apply();
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
+                    new ProfileFragment()).commit();
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
+                    new HomeFragment()).commit();
+        }
     }
 
     @SuppressLint("NonConstantResourceId")

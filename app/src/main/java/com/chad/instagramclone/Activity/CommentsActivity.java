@@ -1,15 +1,14 @@
 package com.chad.instagramclone.Activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.chad.instagramclone.Adapter.CommentsAdapter;
@@ -35,14 +34,10 @@ import java.util.Objects;
 public class CommentsActivity extends AppCompatActivity {
 
     private TextInputEditText edittextComment;
-    private ImageView imageClose;
     private ImageView imageProfile;
-    private TextInputLayout textInputLayout;
 
     private String postId;
-    private String publisherId;
 
-    private RecyclerView recyclerView;
     private CommentsAdapter commentsAdapter;
     private List<Comment> list;
 
@@ -56,11 +51,11 @@ public class CommentsActivity extends AppCompatActivity {
     }
 
     private void initialize() {
-        imageClose = findViewById(R.id.imageClose);
+        ImageView imageClose = findViewById(R.id.imageClose);
         edittextComment = findViewById(R.id.edittextComment);
         imageProfile = findViewById(R.id.imageProfileComments);
-        textInputLayout = findViewById(R.id.createTextInputLayoutComment);
-        recyclerView = findViewById(R.id.commentsRecyclerView);
+        TextInputLayout textInputLayout = findViewById(R.id.createTextInputLayoutComment);
+        RecyclerView recyclerView = findViewById(R.id.commentsRecyclerView);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -74,8 +69,7 @@ public class CommentsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         postId = intent.getStringExtra(Constants.POST_ID);
-        publisherId = intent.getStringExtra(Constants.PUBLISHER_ID);
-
+        //String publisherId = intent.getStringExtra(Constants.PUBLISHER_ID);
 
         imageClose.setOnClickListener(v -> finish());
         textInputLayout.setEndIconOnClickListener(v -> {
@@ -87,6 +81,7 @@ public class CommentsActivity extends AppCompatActivity {
         });
 
         getPublisherImage();
+        readComments();
     }
 
     private void addComment() {
@@ -109,6 +104,26 @@ public class CommentsActivity extends AppCompatActivity {
                 if (user != null) {
                     Glide.with(CommentsActivity.this).load(user.getImageUrl()).into(imageProfile);
                 }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void readComments() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Comments").child(postId);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                    Comment comment = dataSnapshot.getValue(Comment.class);
+                    list.add(comment);
+                }
+                commentsAdapter.notifyDataSetChanged();
             }
 
             @Override
