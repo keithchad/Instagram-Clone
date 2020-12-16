@@ -25,4 +25,6 @@
     <string name="comments">COMMENTS</string>
     <string name="comment">Comment</string>
     <string name="dot">.</string>
+    <string name="posts">Posts</string>
+    <string name="followers">Followers</string>
 </resources>

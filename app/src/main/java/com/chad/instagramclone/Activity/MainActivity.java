@@ -18,6 +18,8 @@ import com.chad.instagramclone.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
     private Fragment selectedFragment = null;
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.profile:
                             SharedPreferences.Editor editor = getSharedPreferences(Constants.SHARED_PREF, MODE_PRIVATE).edit();
-                            editor.putString(Constants.SHARED_PREF_PROFILE_ID, FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            editor.putString(Constants.SHARED_PREF_PROFILE_ID, Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
                             editor.apply();
                         selectedFragment = new ProfileFragment();
                         break;
@@ -96,4 +98,5 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
     };
+
 }
