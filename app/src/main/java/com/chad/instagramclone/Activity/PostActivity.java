@@ -47,6 +47,10 @@ public class PostActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Intent intent = getIntent();
+        int s = intent.getIntExtra("themeId", R.style.AppTheme);
+
+        setTheme(s);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
         initialize();

@@ -21,15 +21,26 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
 
     private Fragment selectedFragment = null;
+    private int selectedTheme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        selectedTheme = R.style.DarkTheme;
+        setTheme(selectedTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTheme(R.style.AppTheme);
+        
         initialize();
-        getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorWhite));
-        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorWhite));
+
+        if(selectedTheme == R.style.DarkTheme) {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorBlack));
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorBlack));
+        } else {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorWhite));
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorWhite));
+        }
     }
 
     private void initialize() {
@@ -52,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.addPhoto:
                         Intent intent = new Intent(MainActivity.this, PostActivity.class);
+                        intent.putExtra("themeId", selectedTheme);
                         startActivity(intent);
                         break;
                     case R.id.notification:
