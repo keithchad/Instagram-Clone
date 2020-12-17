@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,8 @@ public class ProfileFragment extends Fragment {
     private TextView textUsername;
     private TextView textBio;
     private MaterialButton editProfileButton;
+    private SwipeRefreshLayout swipeRefreshLayout;
+
 
     private String profileId;
     private FirebaseUser firebaseUser;
@@ -66,6 +69,7 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         initialize(view);
+        swipeRefreshLayout.setRefreshing(true);
         return view;
     }
 
@@ -84,6 +88,8 @@ public class ProfileFragment extends Fragment {
         ImageButton savedPhotos = view.findViewById(R.id.savedPhotos);
         userPhotosRecyclerView = view.findViewById(R.id.userPhotosRecyclerView);
         savedPhotosRecyclerView = view.findViewById(R.id.savedPhotosRecyclerView);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayoutProfile);
+        swipeRefreshLayout.setOnRefreshListener(this::getUserInfo);
 
         userList = new ArrayList<>();
         userPhotoAdapter = new UserPhotoAdapter(getContext(), userList);
@@ -163,6 +169,7 @@ public class ProfileFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                swipeRefreshLayout.setRefreshing(false);
                 if (getContext() == null) {
                     return;
                 }

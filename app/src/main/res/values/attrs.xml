@@ -5,6 +5,7 @@
 
         <attr name="backgroundColor" format="color" />
         <attr name="text_color" format="color" />
+        <attr name="searchBarColor" format="color" />
 
     </declare-styleable>
 </resources>

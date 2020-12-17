@@ -95,7 +95,10 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                String userId = firebaseUser.getUid();
+                String userId = null;
+                if (firebaseUser != null) {
+                    userId = firebaseUser.getUid();
+                }
 
                 reference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 

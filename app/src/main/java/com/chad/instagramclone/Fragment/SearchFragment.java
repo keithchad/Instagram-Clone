@@ -1,18 +1,17 @@
 package com.chad.instagramclone.Fragment;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.instagramclone.Adapter.UserAdapter;
 import com.chad.instagramclone.Constants.Constants;
@@ -36,12 +35,14 @@ public class SearchFragment extends Fragment {
     private List<User> list;
 
     private TextInputEditText edittextSearch;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         initialize(view);
+        swipeRefreshLayout.setRefreshing(true);
         return view;
     }
 
@@ -50,7 +51,9 @@ public class SearchFragment extends Fragment {
         RecyclerView searchRecyclerView = view.findViewById(R.id.searchRecyclerView);
         list = new ArrayList<>();
         userAdapter = new UserAdapter(requireContext(), list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayoutSearch);
+        swipeRefreshLayout.setOnRefreshListener(this::readUsers);
 
         searchRecyclerView.setHasFixedSize(true);
         searchRecyclerView.setLayoutManager(layoutManager);
@@ -104,12 +107,12 @@ public class SearchFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                swipeRefreshLayout.setRefreshing(false);
                 if (Objects.requireNonNull(edittextSearch.getText()).toString().equals("")) {
                     list.clear();
                     for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
                         User user = dataSnapshot.getValue(User.class);
                         list.add(user);
-                        Log.e("Search", user.toString());
                     }
                     userAdapter.notifyDataSetChanged();
                 }

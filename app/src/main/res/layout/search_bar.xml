@@ -1,0 +1,58 @@
+<androidx.cardview.widget.CardView xmlns:tools="http://schemas.android.com/tools"
+    app:cardUseCompatPadding="true"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="?attr/searchBarColor"
+    android:foreground="@android:color/transparent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/search_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?attr/text_color"
+            android:contentDescription="@string/app_name" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edittextSearch"
+            android:gravity="center|start"
+            android:background="@android:color/transparent"
+            app:tint="?attr/text_color"
+            android:paddingStart="16dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:hint="@string/search_users"
+            android:minWidth="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/end_icon"
+            app:layout_constraintStart_toEndOf="@+id/search_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry" />
+
+        <ImageView
+            android:id="@+id/end_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/app_name" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

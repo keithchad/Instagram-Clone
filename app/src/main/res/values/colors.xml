@@ -8,14 +8,16 @@
     <color name="colorBlack">#000000</color>
 
 <!--    //Dark Theme Colors-->
-    <color name="colorPrimaryDarkTheme">#141414</color>
-    <color name="colorPrimaryDarkDarkTheme">#141414</color>
-    <color name="colorBackgroundDarkTheme">#141414</color>
+    <color name="colorPrimaryDarkTheme">#034BDA</color>
+    <color name="colorPrimaryDarkDarkTheme">#034BDA</color>
+    <color name="colorBackgroundDarkTheme">#151515</color>
     <color name="colorTextDarkTheme">#FAFAFA</color>
     <color name="colorIconTintDarkTheme">#A2A2A2</color>
+    <color name="colorSearchBarDarkTheme">#252525</color>
 
 <!--    //Light Theme Colors-->
     <color name="colorTextLightTheme">#363636</color>
     <color name="colorBackgroundLightTheme">#FFFFFF</color>
+    <color name="colorSearchBarLightTheme">#FFFFFF</color>
 
 </resources>
