@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PostDetailsFragment extends Fragment {
 
@@ -47,7 +48,7 @@ public class PostDetailsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.postDetailsRecyclerView);
         imageClose = view.findViewById(R.id.imageClose);
 
-        SharedPreferences preferences = getContext().getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE);
+        SharedPreferences preferences = Objects.requireNonNull(getContext()).getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE);
         postId = preferences.getString(Constants.POST_ID, "none");
 
         list = new ArrayList<>();

@@ -65,8 +65,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             holder.buttonFollow.setVisibility(View.GONE);
         }
 
-        holder.itemView.setOnClickListener((View.OnClickListener) v -> {
-            @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = (SharedPreferences.Editor) context.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE).edit();
+        holder.itemView.setOnClickListener(v -> {
+            SharedPreferences.Editor editor = context.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE).edit();
             editor.putString(Constants.SHARED_PREF_PROFILE_ID, user.getId());
             editor.apply();
             ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new ProfileFragment()).commit();
@@ -110,17 +110,18 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         }
     }
 
-    private void isFollowing(final String userId, final Button button) {
+    private void isFollowing(final String userId, final MaterialButton button) {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
                 .child("Follow").child(firebaseUser.getUid()).child("following");
         reference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child(userId).exists()) {
-                    button.setText(R.string.following);
+                    button.setText("following");
                 }else {
-                    button.setText(R.string.follow);
+                    button.setText("follow");
                 }
             }
 

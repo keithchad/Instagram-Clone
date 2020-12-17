@@ -27,6 +27,7 @@
                 android:contentDescription="@string/app_name" />
 
             <TextView
+                android:id="@+id/textUsernamePost"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -66,10 +67,9 @@
 
             <ImageView
                 android:id="@+id/imageLike"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/ic_favorite_border"
-                app:tint="?attr/text_color"
                 android:layout_marginEnd="8dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
@@ -78,8 +78,8 @@
 
             <ImageView
                 android:id="@+id/imageComment"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/ic_comment"
                 android:layout_marginEnd="8dp"
                 app:tint="?attr/text_color"
@@ -91,8 +91,8 @@
 
             <ImageView
                 android:id="@+id/imageInbox"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/ic_inbox"
                 android:layout_marginEnd="8dp"
                 app:tint="?attr/text_color"
@@ -104,8 +104,8 @@
 
             <ImageView
                 android:id="@+id/imageSave"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/ic_bookmark_border"
                 android:layout_marginEnd="8dp"
                 app:tint="?attr/text_color"

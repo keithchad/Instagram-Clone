@@ -187,7 +187,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             imageComment = itemView.findViewById(R.id.imageComment);
             imageInbox = itemView.findViewById(R.id.imageInbox);
             imageSave = itemView.findViewById(R.id.imageSave);
-            textUsername = itemView.findViewById(R.id.textUsername);
+            textUsername = itemView.findViewById(R.id.textUsernamePost);
             textCaption = itemView.findViewById(R.id.textCaption);
             textComment = itemView.findViewById(R.id.textComments);
             textLikes = itemView.findViewById(R.id.textLikes);
@@ -234,6 +234,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             }
         });
+
     }
     
     private void numberOfLikes(TextView likes, String postId) {
@@ -286,10 +287,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child(postId).exists()) {
                     imageView.setImageResource(R.drawable.ic_bookmark);
-                    imageView.setTag("saved");
+                    imageView.setTag("Saved");
                 } else {
                     imageView.setImageResource(R.drawable.ic_bookmark_border);
-                    imageView.setTag("save");
+                    imageView.setTag("Save");
                 }
             }
 

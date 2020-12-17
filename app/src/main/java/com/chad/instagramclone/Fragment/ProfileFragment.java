@@ -72,12 +72,12 @@ public class ProfileFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     private void initialize(View view) {
         ImageView imageOptions = view.findViewById(R.id.imageOptions);
-        imageProfile = view.findViewById(R.id.imageProfile);
-        textUsername = view.findViewById(R.id.textUsername);
+        imageProfile = view.findViewById(R.id.imageProfileUser);
+        textUsername = view.findViewById(R.id.textUsernameProfile);
         textPosts = view.findViewById(R.id.textPosts);
         textFollowers = view.findViewById(R.id.textFollowers);
         textFollowing = view.findViewById(R.id.textFollowing);
-        textFullname = view.findViewById(R.id.textFullname);
+        textFullname = view.findViewById(R.id.textFullNameProfile);
         textBio = view.findViewById(R.id.textBio);
         editProfileButton = view.findViewById(R.id.editProfileButton);
         ImageButton userPhotos = view.findViewById(R.id.userPhotos);
@@ -86,14 +86,14 @@ public class ProfileFragment extends Fragment {
         savedPhotosRecyclerView = view.findViewById(R.id.savedPhotosRecyclerView);
 
         userList = new ArrayList<>();
-        userPhotoAdapter = new UserPhotoAdapter(requireContext(), userList);
+        userPhotoAdapter = new UserPhotoAdapter(getContext(), userList);
         GridLayoutManager userLayoutManager = new GridLayoutManager(getContext(), 3);
         userPhotosRecyclerView.setHasFixedSize(true);
         userPhotosRecyclerView.setAdapter(userPhotoAdapter);
         userPhotosRecyclerView.setLayoutManager(userLayoutManager);
 
         savedList = new ArrayList<>();
-        savedPhotoAdapter = new UserPhotoAdapter(requireContext(), savedList);
+        savedPhotoAdapter = new UserPhotoAdapter(getContext(), savedList);
         GridLayoutManager savedLayoutManager = new GridLayoutManager(getContext(), 3);
         savedPhotosRecyclerView.setHasFixedSize(true);
         savedPhotosRecyclerView.setAdapter(savedPhotoAdapter);
