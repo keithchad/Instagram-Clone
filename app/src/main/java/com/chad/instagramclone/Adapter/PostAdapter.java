@@ -3,6 +3,7 @@ package com.chad.instagramclone.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +13,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.chad.instagramclone.Activity.CommentsActivity;
 import com.chad.instagramclone.Constants.Constants;
+import com.chad.instagramclone.Fragment.ProfileFragment;
 import com.chad.instagramclone.Model.Post;
 import com.chad.instagramclone.Model.User;
 import com.chad.instagramclone.R;
@@ -74,6 +77,46 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         numberOfLikes(holder.textLikes, post.getPostId());
         getComments(post.getPostId(), holder.textComment);
         isSaved(post.getPostId(), holder.imageSave);
+
+        holder.profileImage.setOnClickListener(v -> {
+            SharedPreferences.Editor editor = context.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE).edit();
+            editor.putString(Constants.SHARED_PREF_PROFILE_ID, post.getPublisherId());
+            editor.apply();
+
+            ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
+                    new ProfileFragment());
+
+        });
+
+        holder.textUsername.setOnClickListener(v -> {
+            SharedPreferences.Editor editor = context.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE).edit();
+            editor.putString(Constants.SHARED_PREF_PROFILE_ID, post.getPublisherId());
+            editor.apply();
+
+            ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
+                    new ProfileFragment());
+
+        });
+
+        holder.textPublisher.setOnClickListener(v -> {
+            SharedPreferences.Editor editor = context.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE).edit();
+            editor.putString(Constants.SHARED_PREF_PROFILE_ID, post.getPublisherId());
+            editor.apply();
+
+            ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
+                    new ProfileFragment());
+
+        });
+
+        holder.postImage.setOnClickListener(v -> {
+            SharedPreferences.Editor editor = context.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE).edit();
+            editor.putString(Constants.POST_ID, post.getPostId());
+            editor.apply();
+
+            ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
+                    new ProfileFragment());
+
+        });
 
         holder.imageLike.setOnClickListener(v -> {
             if (holder.imageLike.getTag().equals("Like")) {
@@ -211,7 +254,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         });
     }
 
-    private void publisherInfo(ImageView imageProfile, TextView userName, TextView publisher, String userId ) {
+    private void publisherInfo(ImageView imageProfile, TextView userName,
+                               TextView publisher, String userId ) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
         reference.addValueEventListener(new ValueEventListener() {
             @Override

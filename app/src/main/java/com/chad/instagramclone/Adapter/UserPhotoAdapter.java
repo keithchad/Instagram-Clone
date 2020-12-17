@@ -1,15 +1,19 @@
 package com.chad.instagramclone.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.chad.instagramclone.Constants.Constants;
+import com.chad.instagramclone.Fragment.ProfileFragment;
 import com.chad.instagramclone.Model.Post;
 import com.chad.instagramclone.R;
 
@@ -36,6 +40,16 @@ public class UserPhotoAdapter extends RecyclerView.Adapter<UserPhotoAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Post post = list.get(position);
         Glide.with(context).load(post.getPostImage()).into(holder.imagePosts);
+
+        holder.imagePosts.setOnClickListener(v -> {
+            SharedPreferences.Editor editor = context.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE).edit();
+            editor.putString(Constants.POST_ID, post.getPostId());
+            editor.apply();
+
+            ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
+                    new ProfileFragment());
+
+        });
     }
 
     @Override
