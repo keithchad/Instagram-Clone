@@ -31,4 +31,5 @@
     <string name="save">SAVE</string>
     <string name="change_photo">CHANGE PHOTO</string>
     <string name="bio">Bio</string>
+    <string name="notifications">NOTIFICATIONS</string>
 </resources>
