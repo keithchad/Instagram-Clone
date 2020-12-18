@@ -27,4 +27,8 @@
     <string name="followers">Followers</string>
     <string name="photos">PHOTOS</string>
     <string name="search_users">Search Users</string>
+    <string name="edit_profile">EDIT PROFILE</string>
+    <string name="save">SAVE</string>
+    <string name="change_photo">CHANGE PHOTO</string>
+    <string name="bio">Bio</string>
 </resources>

@@ -2,6 +2,7 @@ package com.chad.instagramclone.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.chad.instagramclone.Activity.EditProfileActivity;
 import com.chad.instagramclone.Adapter.UserPhotoAdapter;
 import com.chad.instagramclone.Constants.Constants;
 import com.chad.instagramclone.Model.Post;
@@ -92,14 +94,14 @@ public class ProfileFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(this::getUserInfo);
 
         userList = new ArrayList<>();
-        userPhotoAdapter = new UserPhotoAdapter(getContext(), userList);
+        userPhotoAdapter = new UserPhotoAdapter(getActivity(), userList);
         GridLayoutManager userLayoutManager = new GridLayoutManager(getContext(), 3);
         userPhotosRecyclerView.setHasFixedSize(true);
         userPhotosRecyclerView.setAdapter(userPhotoAdapter);
         userPhotosRecyclerView.setLayoutManager(userLayoutManager);
 
         savedList = new ArrayList<>();
-        savedPhotoAdapter = new UserPhotoAdapter(getContext(), savedList);
+        savedPhotoAdapter = new UserPhotoAdapter(getActivity(), savedList);
         GridLayoutManager savedLayoutManager = new GridLayoutManager(getContext(), 3);
         savedPhotosRecyclerView.setHasFixedSize(true);
         savedPhotosRecyclerView.setAdapter(savedPhotoAdapter);
@@ -116,7 +118,8 @@ public class ProfileFragment extends Fragment {
             String button = editProfileButton.getText().toString();
             switch (button) {
                 case "Edit Profile":
-                    Toast.makeText(requireContext(), "Profile", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getContext(), EditProfileActivity.class);
+                    startActivity(intent);
                     break;
                 case "Follow":
                     FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid())
