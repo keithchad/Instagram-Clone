@@ -14,10 +14,12 @@ public class Constants {
     public static final String POST_IMAGE = "postImage";
     public static final String CAPTION = "caption";
     public static final String PUBLISHER_ID = "publisherId";
+    public static final String IS_POST = "isPost";
 
     //Firebase(Comment)
     public static final String COMMENT = "comment";
     public static final String PUBLISHER = "publisher";
+    public static final String TEXT_COMMENT = "textComment";
 
     //Shared Preferences
     public static final String SHARED_PREF = "instagramPref";

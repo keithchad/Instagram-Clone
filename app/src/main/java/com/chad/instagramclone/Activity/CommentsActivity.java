@@ -41,6 +41,8 @@ public class CommentsActivity extends AppCompatActivity {
     private CommentsAdapter commentsAdapter;
     private List<Comment> list;
 
+    private String publisherId;
+
     private FirebaseUser firebaseUser;
 
     @Override
@@ -69,7 +71,7 @@ public class CommentsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         postId = intent.getStringExtra(Constants.POST_ID);
-        //String publisherId = intent.getStringExtra(Constants.PUBLISHER_ID);
+        publisherId = intent.getStringExtra(Constants.PUBLISHER_ID);
 
         imageClose.setOnClickListener(v -> finish());
         textInputLayout.setEndIconOnClickListener(v -> {
@@ -93,6 +95,19 @@ public class CommentsActivity extends AppCompatActivity {
 
         reference.push().setValue(hashMap);
         edittextComment.setText("");
+        addNotification();
+    }
+
+    private void addNotification() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Notifications").child(publisherId);
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put(Constants.USER_ID, firebaseUser.getUid());
+        hashMap.put(Constants.TEXT_COMMENT, "commented: "+edittextComment.getText().toString());
+        hashMap.put(Constants.POST_ID, postId);
+        hashMap.put(Constants.IS_POST, true);
+
+        reference.push().setValue(hashMap);
     }
 
     private void getPublisherImage() {

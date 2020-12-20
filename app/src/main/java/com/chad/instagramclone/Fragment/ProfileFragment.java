@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.chad.instagramclone.Activity.EditProfileActivity;
+import com.chad.instagramclone.Activity.FollowersActivity;
 import com.chad.instagramclone.Adapter.UserPhotoAdapter;
 import com.chad.instagramclone.Constants.Constants;
 import com.chad.instagramclone.Model.Post;
@@ -38,6 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -126,6 +128,7 @@ public class ProfileFragment extends Fragment {
                             .child("following").child(profileId).setValue(true);
                     FirebaseDatabase.getInstance().getReference().child("Follow").child(profileId)
                             .child("followers").child(firebaseUser.getUid()).setValue(true);
+                    addNotification();
                     break;
                 case "Following":
                     FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid())
@@ -164,6 +167,32 @@ public class ProfileFragment extends Fragment {
             userPhotosRecyclerView.setVisibility(View.GONE);
         });
 
+        textFollowers.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), FollowersActivity.class);
+            intent.putExtra("id", profileId);
+            intent.putExtra("title", "followers");
+            startActivity(intent);
+        });
+
+        textFollowing.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), FollowersActivity.class);
+            intent.putExtra("id", profileId);
+            intent.putExtra("title", "following");
+            startActivity(intent);
+        });
+
+    }
+
+    private void addNotification() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Notifications").child(profileId);
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put(Constants.USER_ID, firebaseUser.getUid());
+        hashMap.put(Constants.TEXT_COMMENT, "started following you");
+        hashMap.put(Constants.POST_ID, "");
+        hashMap.put(Constants.IS_POST, false);
+
+        reference.push().setValue(hashMap);
     }
 
     private void getUserInfo() {

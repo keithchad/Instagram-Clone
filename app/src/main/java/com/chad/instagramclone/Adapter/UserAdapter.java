@@ -2,6 +2,7 @@ package com.chad.instagramclone.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.chad.instagramclone.Activity.MainActivity;
 import com.chad.instagramclone.Constants.Constants;
 import com.chad.instagramclone.Fragment.ProfileFragment;
 import com.chad.instagramclone.Model.User;
@@ -28,18 +30,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private final Context context;
     private final List<User> list;
+    private final boolean isFragment;
 
     private FirebaseUser firebaseUser;
 
-    public UserAdapter(Context context, List<User> list) {
+    public UserAdapter(Context context, List<User> list, boolean isFragment) {
         this.context = context;
         this.list = list;
+        this.isFragment = isFragment;
     }
 
     @NonNull
@@ -66,10 +71,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         }
 
         holder.itemView.setOnClickListener(v -> {
-            SharedPreferences.Editor editor = context.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE).edit();
-            editor.putString(Constants.SHARED_PREF_PROFILE_ID, user.getId());
-            editor.apply();
-            ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new ProfileFragment()).commit();
+
+            if(isFragment) {
+                SharedPreferences.Editor editor = context.getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE).edit();
+                editor.putString(Constants.SHARED_PREF_PROFILE_ID, user.getId());
+                editor.apply();
+                ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new ProfileFragment()).commit();
+            }else {
+                Intent intent = new Intent(context, MainActivity.class);
+                intent.putExtra(Constants.PUBLISHER_ID, user.getId());
+                context.startActivity(intent);
+            }
         });
 
         holder.buttonFollow.setOnClickListener(v -> {
@@ -78,6 +90,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                         .child("following").child(user.getId()).setValue(true);
                 FirebaseDatabase.getInstance().getReference().child("Follow").child(user.getId())
                         .child("followers").child(firebaseUser.getUid()).setValue(true);
+                addNotification(user.getId());
             }else {
                 FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid())
                         .child("following").child(user.getId()).removeValue();
@@ -108,6 +121,18 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             textFullName = itemView.findViewById(R.id.textFullname);
             buttonFollow = itemView.findViewById(R.id.buttonFollow);
         }
+    }
+
+    private void addNotification(String userId) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Notifications").child(userId);
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put(Constants.USER_ID, firebaseUser.getUid());
+        hashMap.put(Constants.TEXT_COMMENT, "started following you");
+        hashMap.put(Constants.POST_ID, "");
+        hashMap.put(Constants.IS_POST, false);
+
+        reference.push().setValue(hashMap);
     }
 
     private void isFollowing(final String userId, final MaterialButton button) {

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.chad.instagramclone.Activity.CommentsActivity;
+import com.chad.instagramclone.Activity.FollowersActivity;
 import com.chad.instagramclone.Constants.Constants;
 import com.chad.instagramclone.Fragment.ProfileFragment;
 import com.chad.instagramclone.Model.Post;
@@ -31,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -122,6 +124,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             if (holder.imageLike.getTag().equals("Like")) {
                 FirebaseDatabase.getInstance().getReference().child("Likes")
                         .child(post.getPostId()).child(firebaseUser.getUid()).setValue(true);
+                addNotification(post.getPublisherId(), post.getPostId());
             } else {
                 FirebaseDatabase.getInstance().getReference().child("Likes")
                         .child(post.getPostId()).child(firebaseUser.getUid()).removeValue();
@@ -154,6 +157,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                         .child(post.getPostId())
                         .removeValue();
             }
+        });
+        holder.textLikes.setOnClickListener(v -> {
+            Intent intent = new Intent(context, FollowersActivity.class);
+            intent.putExtra("id", post.getPostId());
+            intent.putExtra("title", "likes");
+            context.startActivity(intent);
         });
 
     }
@@ -193,6 +202,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             textLikes = itemView.findViewById(R.id.textLikes);
             textPublisher = itemView.findViewById(R.id.textPublisher);
         }
+    }
+
+    private void addNotification(String userId, String postId) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Notifications").child(userId);
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put(Constants.USER_ID, firebaseUser.getUid());
+        hashMap.put(Constants.TEXT_COMMENT, "Liked your post");
+        hashMap.put(Constants.POST_ID, postId);
+        hashMap.put(Constants.IS_POST, true);
+
+        reference.push().setValue(hashMap);
     }
 
     private void getComments(String postId, TextView comments) {

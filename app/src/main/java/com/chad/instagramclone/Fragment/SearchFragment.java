@@ -50,7 +50,7 @@ public class SearchFragment extends Fragment {
         edittextSearch = view.findViewById(R.id.edittextSearch);
         RecyclerView searchRecyclerView = view.findViewById(R.id.searchRecyclerView);
         list = new ArrayList<>();
-        userAdapter = new UserAdapter(requireContext(), list);
+        userAdapter = new UserAdapter(requireContext(), list, true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayoutSearch);
         swipeRefreshLayout.setOnRefreshListener(this::readUsers);
