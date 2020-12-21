@@ -24,4 +24,10 @@ public class Constants {
     //Shared Preferences
     public static final String SHARED_PREF = "instagramPref";
     public static final String SHARED_PREF_PROFILE_ID = "profileId";
+
+    //Theme
+    public static final String THEME_KEY = "theme";
+    public static final int THEME_LIGHT = 0;
+    public static final int THEME_DARK = 1;
+
 }

@@ -20,6 +20,11 @@
         <item name="searchBarColor">@color/colorSearchBarDarkTheme</item>
     </style>
 
-
+    <style name="FullScreenDialogTheme" parent="Theme.MaterialComponents.DialogWhenLarge">
+        <item name="android:statusBarColor">#0C0C0C</item>
+        <item name="android:navigationBarColor">#0C0C0C</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/Animation.AppCompat.Dialog</item>
+    </style>
 
 </resources>

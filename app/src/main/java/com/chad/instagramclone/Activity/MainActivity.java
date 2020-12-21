@@ -15,6 +15,7 @@ import com.chad.instagramclone.Fragment.NotificationFragment;
 import com.chad.instagramclone.Fragment.ProfileFragment;
 import com.chad.instagramclone.Fragment.SearchFragment;
 import com.chad.instagramclone.R;
+import com.chad.instagramclone.Util.AppSettings;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -28,7 +29,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        selectedTheme = R.style.DarkTheme;
+        AppSettings appSettings = new AppSettings(this);
+        if (appSettings.getTheme() == Constants.THEME_DARK) {
+            selectedTheme = R.style.DarkTheme;
+        } else {
+            selectedTheme = R.style.AppTheme;
+        }
         setTheme(selectedTheme);
 
         super.onCreate(savedInstanceState);

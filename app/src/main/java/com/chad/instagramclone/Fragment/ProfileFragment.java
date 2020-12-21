@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.chad.instagramclone.Activity.EditProfileActivity;
 import com.chad.instagramclone.Activity.FollowersActivity;
+import com.chad.instagramclone.Activity.OptionsActivity;
 import com.chad.instagramclone.Adapter.UserPhotoAdapter;
 import com.chad.instagramclone.Constants.Constants;
 import com.chad.instagramclone.Model.Post;
@@ -54,7 +55,6 @@ public class ProfileFragment extends Fragment {
     private TextView textBio;
     private MaterialButton editProfileButton;
     private SwipeRefreshLayout swipeRefreshLayout;
-
 
     private String profileId;
     private FirebaseUser firebaseUser;
@@ -116,6 +116,11 @@ public class ProfileFragment extends Fragment {
         SharedPreferences preferences = Objects.requireNonNull(getContext()).getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE);
         profileId = preferences.getString(Constants.SHARED_PREF_PROFILE_ID, "none");
 
+        imageOptions.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), OptionsActivity.class);
+            startActivity(intent);
+        });
+
         editProfileButton.setOnClickListener(v -> {
             String button = editProfileButton.getText().toString();
             switch (button) {
@@ -137,11 +142,6 @@ public class ProfileFragment extends Fragment {
                             .child("followers").child(firebaseUser.getUid()).removeValue();
                     break;
             }
-        });
-
-        imageOptions.setOnClickListener(v -> {
-            Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT).show();
-            Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT).show();
         });
 
         getUserInfo();
