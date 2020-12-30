@@ -1,6 +1,7 @@
 package com.chad.instagramclone.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -40,6 +41,13 @@ public class OptionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
         initialize();
+        if(selectedTheme == R.style.DarkTheme) {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorBlack));
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorBlack));
+        } else {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorWhite));
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorWhite));
+        }
     }
 
     private void initialize() {
